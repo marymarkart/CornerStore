@@ -1,4 +1,4 @@
-package com.example.springstarbucks;
+package com.example.cornerstore.springstarbucksapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/order")
 public class StarbucksOrderController {
-    private final com.example.springstarbucksapi.StarbucksOrderRepository starbucksOrderRepository;
+    private final com.example.cornerstore.springstarbucksapi.StarbucksOrderRepository starbucksOrderRepository;
 
     @Autowired
     private StarbucksCardRepository starbucksCardRepository ;
@@ -31,7 +32,7 @@ public class StarbucksOrderController {
 
     private HashMap<String, StarbucksOrder> orders = new HashMap<>();
 
-    StarbucksOrderController(com.example.springstarbucksapi.StarbucksOrderRepository repository){ this.starbucksOrderRepository = repository ;
+    StarbucksOrderController(com.example.cornerstore.springstarbucksapi.StarbucksOrderRepository repository){ this.starbucksOrderRepository = repository ;
     }
 
     @GetMapping("/orders")

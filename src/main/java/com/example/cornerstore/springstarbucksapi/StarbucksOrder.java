@@ -1,4 +1,4 @@
-package com.example.springstarbucks;
+package com.example.cornerstore.springstarbucksapi;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
-package com.example.springpayments;
+package com.example.cornerstore.springpayments;
 
-import com.example.springcybersource.*;
+import com.example.cornerstore.springcybersource.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-@RequestMapping("/")
+@RequestMapping("/payments")
 public class PaymentsController {
 
     private static boolean DEBUG = true ;
@@ -129,8 +129,8 @@ public class PaymentsController {
         }
     }
 
-    @GetMapping
-    public String getAction( @ModelAttribute("command") PaymentsCommand command, 
+    @GetMapping()
+    public String getAction( @ModelAttribute("command") PaymentsCommand command,
                             Model model) {
 
         return "creditcards" ;
@@ -138,10 +138,10 @@ public class PaymentsController {
     }
 
     @PostMapping
-    public String postAction(@Valid @ModelAttribute("command") PaymentsCommand command,  
+    public String postAction(@Valid @ModelAttribute("command") PaymentsCommand command,
                             @RequestParam(value="action", required=true) String action,
                             Errors errors, Model model, HttpServletRequest request) {
-    
+
         log.info( "Action: " + action ) ;
         log.info( "Command: " + command ) ;
 

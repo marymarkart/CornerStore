@@ -1,4 +1,4 @@
-package com.example.springstarbucks;
+package com.example.cornerstore.springstarbucksapi;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

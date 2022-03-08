@@ -1,4 +1,4 @@
-package com.example.springcybersource;
+package com.example.cornerstore.springcybersource;
 
 public class RefundRequest extends Payload {
 

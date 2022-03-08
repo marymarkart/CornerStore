@@ -1,4 +1,4 @@
-package com.example.springcybersource;
+package com.example.cornerstore.springcybersource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

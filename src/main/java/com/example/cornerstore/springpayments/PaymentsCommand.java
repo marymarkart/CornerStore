@@ -1,4 +1,4 @@
-package com.example.springpayments;
+package com.example.cornerstore.springpayments;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

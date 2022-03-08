@@ -1,50 +1,41 @@
-package com.example.springcybersource;
+package com.example.cornerstore.springcybersource;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AuthResponse extends Payload {
-    
+public class RefundResponse extends Payload {
+
     public String id ;
     public int code ;
     public String status ;
     public String reconciliationId ;
     public String reason ;
     public String message ;
-
-    public static AuthResponse fromJson( String json ) {
+    
+    public static RefundResponse fromJson( String json ) {
         /* 
             https://www.baeldung.com/jackson-object-mapper-tutorial
         */
         ObjectMapper mapper = new ObjectMapper() ;
-        AuthResponse response = new AuthResponse() ;
+        RefundResponse response = new RefundResponse() ;
         try { 
             JsonNode jsonNode = mapper.readTree(json);
             if ( jsonNode.get("response") != null ) {
                 response.status = "ERROR" ;
                 response.message = jsonNode.get("response").get("rmsg").asText() ;
-            } else {
+            } else {            
                 response.id = jsonNode.get("id").asText() ;
                 response.status = jsonNode.get("status").asText() ;
-                if ( !response.status.equals("AUTHORIZED") ) {
+                if ( !response.status.equals("PENDING") ) {
                     response.status = "ERROR" ;
                     response.reason = jsonNode.get("errorInformation").get("reason").asText() ;
                     response.message = jsonNode.get("errorInformation").get("message").asText() ;
                 } else { 
                     response.reconciliationId = jsonNode.get("reconciliationId").asText() ;   
-                }                
+                }
             }
-
         } catch ( Exception e ) { System.out.println( e ) ; }	
         return response ;
-    }  
+    }
 
 }
-
-
-
-// Auth Response: {"id":"6181562114716109903002","status":"AUTHORIZED","reconciliationId":"70073664SN5UVB3H"}
-// Capture Response: {"id":"6181562121596671603003","status":"PENDING","reconciliationId":"70073664SN5UVB3H"}
-// Auth Response: {"id":"6181559647146109603002","status":"INVALID_REQUEST","reconciliationId":null}
-// Capture Response: {"id":"6181559652546671203003","status":"INVALID_REQUEST","reconciliationId":null}
-// {"id":"6181559652546671203003","submitTimeUtc":"2021-04-11T15:46:05Z","status":"INVALID_REQUEST","reason":"INVALID_DATA","message":"Declined - One or more fields in the request contains invalid data"}            
