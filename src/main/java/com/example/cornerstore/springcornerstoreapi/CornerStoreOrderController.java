@@ -1,4 +1,4 @@
-package com.example.cornerstore.springstarbucksapi;
+package com.example.cornerstore.springcornerstoreapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order")
-public class StarbucksOrderController {
-    private final com.example.cornerstore.springstarbucksapi.StarbucksOrderRepository starbucksOrderRepository;
+public class CornerStoreOrderController {
+    private final CornerStoreOrderRepository CornerStoreOrderRepository;
 
     @Autowired
-    private StarbucksCardRepository starbucksCardRepository ;
+    private CornerStoreCardRepository CornerStoreCardRepository ;
 
 
     class Message{
@@ -30,20 +30,20 @@ public class StarbucksOrderController {
         }
     }
 
-    private HashMap<String, StarbucksOrder> orders = new HashMap<>();
+    private HashMap<String, CornerStoreOrder> orders = new HashMap<>();
 
-    StarbucksOrderController(com.example.cornerstore.springstarbucksapi.StarbucksOrderRepository repository){ this.starbucksOrderRepository = repository ;
+    CornerStoreOrderController(CornerStoreOrderRepository repository){ this.CornerStoreOrderRepository = repository ;
     }
 
     @GetMapping("/orders")
-    List<StarbucksOrder> all() {
-        return starbucksOrderRepository.findAll() ;
+    List<CornerStoreOrder> all() {
+        return CornerStoreOrderRepository.findAll() ;
     }
 
     @DeleteMapping("/orders")
     Message deleteAll(){
 
-        starbucksOrderRepository.deleteAllInBatch();
+        CornerStoreOrderRepository.deleteAllInBatch();
         orders.clear();
         Message msg = new Message();
         msg.setStatus("All Orders Cleared!");
@@ -52,12 +52,12 @@ public class StarbucksOrderController {
 
     @PostMapping("/order/register/{regid}")
     @ResponseStatus(HttpStatus.CREATED)
-    StarbucksOrder newOrder(@PathVariable String regid, @RequestBody StarbucksOrder order){
+    CornerStoreOrder newOrder(@PathVariable String regid, @RequestBody CornerStoreOrder order){
         System.out.println("Placing Order (Reg ID = " + regid + ") => " + order);
         if (order.getDrink().equals("") || order.getMilk().equals("") || order.getSize().equals("")){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Requested!");
         }
-        StarbucksOrder active = orders.get(regid);
+        CornerStoreOrder active = orders.get(regid);
         if (active != null) {
             System.out.println("Active Order (Reg ID = " + regid + "( => " + active);
             if (active.getStatus().equals("Ready for Payment.")){
@@ -154,14 +154,14 @@ public class StarbucksOrderController {
         order.setTotal(rounded);
 
         order.setStatus("Ready for Payment.");
-        StarbucksOrder new_order = starbucksOrderRepository.save(order);
+        CornerStoreOrder new_order = CornerStoreOrderRepository.save(order);
         orders.put(regid, new_order);
         return new_order ;
     }
 
     @GetMapping("/order/register/{regid}")
-    StarbucksOrder getActiveOrder(@PathVariable String regid, HttpServletResponse response){
-        StarbucksOrder active = orders.get(regid);
+    CornerStoreOrder getActiveOrder(@PathVariable String regid, HttpServletResponse response){
+        CornerStoreOrder active = orders.get(regid);
         if (active != null) {
             return active ;
         } else {
@@ -171,7 +171,7 @@ public class StarbucksOrderController {
 
     @DeleteMapping("/order/register/{regid}")
     Message deleteActiveOrder(@PathVariable String regid) {
-        StarbucksOrder active = orders.get(regid);
+        CornerStoreOrder active = orders.get(regid);
         if (active != null ){
             orders.remove(regid);
             Message msg = new Message();
@@ -183,9 +183,9 @@ public class StarbucksOrderController {
     }
 
     @PostMapping("/order/register/{regid}/pay/{cardnum}")
-    StarbucksCard processOrder(@PathVariable String regid, @PathVariable String cardnum ){
+    CornerStoreCard processOrder(@PathVariable String regid, @PathVariable String cardnum ){
         System.out.println("Pay for Order: Reg ID = " + regid + " Using Card = " + cardnum );
-        StarbucksOrder active = orders.get(regid);
+        CornerStoreOrder active = orders.get(regid);
         if (active == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
         }
@@ -195,7 +195,7 @@ public class StarbucksOrderController {
         if ( active.getStatus().startsWith("Paid with Card")){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Clear Paid Active Order!");
         }
-        StarbucksCard card = starbucksCardRepository.findByCardNumber(cardnum);
+        CornerStoreCard card = CornerStoreCardRepository.findByCardNumber(cardnum);
         if (card == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Not Found!") ;
         }
@@ -211,8 +211,8 @@ public class StarbucksOrderController {
         card.setBalance( new_balance );
         String status = "Paid with Card: " + cardnum + " Balance: $" + new_balance + ".";
         active.setStatus(status);
-        starbucksCardRepository.save(card);
-        starbucksOrderRepository.save( active );
+        CornerStoreCardRepository.save(card);
+        CornerStoreOrderRepository.save( active );
         return card;
 
     }

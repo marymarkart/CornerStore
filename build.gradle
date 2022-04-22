@@ -25,6 +25,7 @@ repositories {
 
 dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-ldap'
 //	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
@@ -36,9 +37,11 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-web-services'
 //	implementation 'com.google.cloud:spring-cloud-gcp-starter'
 //	implementation 'com.okta.spring:okta-spring-boot-starter:2.1.4'
-//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	compileOnly 'org.projectlombok:lombok'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 //	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'

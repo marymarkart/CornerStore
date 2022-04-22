@@ -1,4 +1,4 @@
-package com.example.cornerstore.springstarbucksapi;
+package com.example.cornerstore.springcornerstoreapi;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Random;
 
 @RestController
-public class StarbucksCardController {
-    private final StarbucksCardRepository starbucksCardRepository;
+public class CornerStoreCardController {
+    private final CornerStoreCardRepository CornerStoreCardRepository;
 
     class Message{
         private String status;
@@ -24,13 +24,13 @@ public class StarbucksCardController {
         }
     }
 
-    StarbucksCardController(StarbucksCardRepository repository){
-        this.starbucksCardRepository = repository ;
+    CornerStoreCardController(CornerStoreCardRepository repository){
+        this.CornerStoreCardRepository = repository ;
     }
 
     @PostMapping("/cards")
-    StarbucksCard newCard(){
-        StarbucksCard newCard = new StarbucksCard() ;
+    CornerStoreCard newCard(){
+        CornerStoreCard newCard = new CornerStoreCard() ;
 
         Random random = new Random();
         int num = random.nextInt(900000000) + 100000000 ;
@@ -41,17 +41,17 @@ public class StarbucksCardController {
         newCard.setBalance(20.00);
         newCard.setActivated(false);
         newCard.setStatus("New Card");
-        return starbucksCardRepository.save(newCard) ;
+        return CornerStoreCardRepository.save(newCard) ;
     }
 
     @GetMapping("/cards")
-    List<StarbucksCard> all() {
-        return starbucksCardRepository.findAll() ;
+    List<CornerStoreCard> all() {
+        return CornerStoreCardRepository.findAll() ;
     }
 
     @GetMapping("/cards/{num}")
-    StarbucksCard getOne(@PathVariable String num, HttpServletResponse response) {
-        StarbucksCard card = starbucksCardRepository.findByCardNumber(num) ;
+    CornerStoreCard getOne(@PathVariable String num, HttpServletResponse response) {
+        CornerStoreCard card = CornerStoreCardRepository.findByCardNumber(num) ;
         if (card == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!") ;
         }
@@ -60,27 +60,27 @@ public class StarbucksCardController {
 
     @DeleteMapping("/card/{num}")
     void deleteAll(){
-        starbucksCardRepository.deleteAllInBatch();
+        CornerStoreCardRepository.deleteAllInBatch();
     }
 
     @DeleteMapping("/cards")
     Message deleteAllCards(){
 
-        starbucksCardRepository.deleteAllInBatch();
+        CornerStoreCardRepository.deleteAllInBatch();
         Message msg = new Message();
         msg.setStatus("All Cards Cleared!");
         return msg;
     }
 
     @PostMapping("card/activate/{num}/{code}")
-    StarbucksCard activate(@PathVariable String num, @PathVariable String code, HttpServletResponse response){
-        StarbucksCard card = starbucksCardRepository.findByCardNumber(num);
+    CornerStoreCard activate(@PathVariable String num, @PathVariable String code, HttpServletResponse response){
+        CornerStoreCard card = CornerStoreCardRepository.findByCardNumber(num);
         if (card == null ){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found.") ;
         }
         if (card.getCardCode().equals(code)) {
             card.setActivated(true);
-            starbucksCardRepository.save(card) ;
+            CornerStoreCardRepository.save(card) ;
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Valid!") ;
         }

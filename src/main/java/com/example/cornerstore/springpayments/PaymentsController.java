@@ -129,11 +129,11 @@ public class PaymentsController {
         }
     }
 
-    @GetMapping()
+    @GetMapping("/product")
     public String getAction( @ModelAttribute("command") PaymentsCommand command,
                             Model model) {
 
-        return "creditcards" ;
+        return "product" ;
 
     }
 
