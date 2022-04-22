@@ -112,7 +112,7 @@ h1.logoa, a:active, a:hover, a:visited {
 }
 a:link, a:visited, a:active {
     text-decoration: none;
-    color: #ffdcbc;
+    color: black;
 }
 a:hover {
     text-decoration: underline;
