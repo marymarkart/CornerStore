@@ -23,6 +23,7 @@
         .jumbotron {
             margin-bottom: 0;
             font-family: "Monaco", "Courier New", monospace;
+            background-color: white;
         }
 
         /* Add a gray background color and some padding to the footer */
@@ -64,10 +65,10 @@
 <style>   
 Body {  
   font-family: Calibri, Helvetica, sans-serif;  
-  background-color: #f2f2f2;  
+  background-color: white;
 }  
 button {   
-       background-color: #4CAF50;   
+       background-color: #5fa70d;
        width: 100%;  
         color: black;   
         padding: 15px;   
@@ -76,10 +77,10 @@ button {
         cursor: pointer;   
          }   
  form {   
-        border: 3px solid #f1f1f1;   
+        border: 0px;
     }   
  input[type=text], input[type=password] {   
-        width: 100%;   
+        width: 80%;
         margin: 8px 0;  
         padding: 12px 20px;   
         display: inline-block;   
@@ -96,25 +97,42 @@ button {
     }   
         
      
- .container {   
-        padding: 25px;   
-        background-color: lightblue;  
-    }   
+ .containerx {
+        width: 100%;
+        margin: 1px;
+         padding: 10px;
+         background-color: #ffdcbc;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+    }
+    .center {
+        margin: auto;
+        width: 30%;
+        padding: 0px;
+    }
+    .doright{
+        text-align: right;
+    }
 </style>   
 </head>    
 <body>    
     <center> <h1 style = "font-family: monaco;"> Login to your Account! </h1> </center>   
-    <form>  
-        <div class="container">   
+    <br><br>
+    <form>
+    <div class = "center">
+        <div class="containerx" >
+
             <label>Username : </label>   
             <input type="text" placeholder="Enter Username" name="username" required>  
             <label>Password : </label>   
             <input type="password" placeholder="Enter Password" name="password" required>  
-            <button type="submit">Login</button>   
-            <input type="checkbox" checked="checked"> Remember me   
+            <button type="submit">Login</button>
+            <input type="checkbox" checked="checked"> Remember me
             <button type="button" class="cancelbtn"> Cancel</button>   
-            Forgot <a href="#"> password? </a>   
-        </div>   
+            Forgot <a href="#"> password? </a>
+
+        </div>
+    </div>
+
     </form>     
 
 </html>
