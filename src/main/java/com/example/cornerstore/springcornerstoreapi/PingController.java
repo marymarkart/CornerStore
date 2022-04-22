@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-@RequestMapping("/ping")
+@RequestMapping
 public class PingController {
 
     class Ping{
@@ -34,8 +34,16 @@ public class PingController {
         return new Ping( "CornerStore API version 1.0 alive!");
     }
 
-    @GetMapping("/base")
+    @GetMapping("/home")
     public String base(){
         return "base";
+    }
+    @GetMapping("/login")
+    public String log(){
+        return "login";
+    }
+    @GetMapping("/account")
+    public String account(){
+        return "profile";
     }
 }
