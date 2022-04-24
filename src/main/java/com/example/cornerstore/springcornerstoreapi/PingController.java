@@ -46,4 +46,16 @@ public class PingController {
     public String account(){
         return "profile";
     }
+    @GetMapping("/tester")
+    public String tester(){
+        return "home";
+    }
+    @GetMapping("/editprofile")
+    public String editor(){
+        return "editprofile";
+    }
+    @GetMapping("/signup")
+    public String signup(){
+        return "signup";
+    }
 }
